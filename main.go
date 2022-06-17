@@ -3,11 +3,8 @@ package main
 import (
 	"fmt"
 	"os"
-	"strconv"
 
 	"mini-project-pikachu/routes"
-
-	"mini-project-pikachu/config/mysql"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
@@ -23,28 +20,6 @@ func init() {
 	}
 
 	fmt.Println("reading .env")
-}
-func init() {
-	// loading databases
-	fmt.Println("connecting mysql bni")
-
-	port, err := strconv.Atoi(os.Getenv("MYSQL_PORT"))
-	if err != nil {
-		fmt.Println(err)
-	}
-	// setup mysql databases
-	database := mysql.Config{
-		Host: os.Getenv("MYSQL_HOST"),
-		DB:   os.Getenv("MYSQL_DATABASE"),
-		Port: port,
-		User: os.Getenv("MYSQL_USER"),
-		Pass: os.Getenv("MYSQL_PASS"),
-	}
-
-	err = database.Connect()
-	if err != nil {
-		panic(err)
-	}
 }
 
 func main() {

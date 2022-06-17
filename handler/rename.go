@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"regexp"
+	"mini-project-pikachu/usecase"
 	"strconv"
 
 	"github.com/gofiber/fiber/v2"
@@ -37,14 +37,7 @@ func Rename(c *fiber.Ctx) error {
 		})
 	}
 
-	reg, err := regexp.Compile("[^a-zA-Z]+")
-	if err != nil {
-		panic(err)
-	}
-	nameOnly := reg.ReplaceAllString(name, "")
-
-	num = Fibonacci(num)
-	nickname := nameOnly + "-" + strconv.Itoa(num)
+	nickname, err := usecase.Rename(name, num)
 
 	return c.Status(200).JSON(fiber.Map{
 		"Message": "done",
